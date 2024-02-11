@@ -4,6 +4,7 @@ let zombieManager;
 let wallManager;
 let playerManager;
 let FPS = 60;
+let DEBUG = false;
 
 function preload() {
   gfxManager = new GfxManager();
@@ -18,12 +19,13 @@ function setup() {
 }
 
 function start() {
-  zombieManager = new ZombieManager();
-  for (let i = 0; i < 5; i++) {
-    zombieManager.generateZombie();
-  }
   wallManager = new WallManager();
   wallManager.generateWalls();
+
+  zombieManager = new ZombieManager();
+  for (let i = 0; i < 20; i++) {
+    zombieManager.generateZombie();
+  }
   playerManager = new PlayerManager();
   playerManager.add();
 }

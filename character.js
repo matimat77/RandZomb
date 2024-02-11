@@ -41,9 +41,9 @@ class Character {
     let wall = wallManager.isAnyCollide(this);
     if (wall != null) {
       if (this.vx > 0) {
-        this.x = wall.x - wall.w / 2 - this.w;
+        this.x = wall.x - wall.w / 2 - this.w - 1;
       } else {
-        this.x = wall.x + wall.w / 2;
+        this.x = wall.x + wall.w / 2 + 1;
       }
       outEdge = true;
     }
@@ -60,9 +60,9 @@ class Character {
     wall = wallManager.isAnyCollide(this);
     if (wall != null) {
       if (this.vy > 0) {
-        this.y = wall.y - wall.h / 2 - this.h;
+        this.y = wall.y - wall.h / 2 - this.h - 1;
       } else {
-        this.y = wall.y + wall.h / 2;
+        this.y = wall.y + wall.h / 2 + 1;
       }
       outEdge = true;
     }
@@ -73,6 +73,13 @@ class Character {
 
   draw() {
     let img = this.lstFrame[this.currentFrame];
+
+    if (DEBUG) {
+      rectMode(CORNER);
+      fill(255);
+      rect(this.x, this.y, this.w, this.h);
+    }
+
     image(img, this.x, this.y);
   }
 }

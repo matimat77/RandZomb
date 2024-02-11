@@ -32,6 +32,28 @@ class PlayerManager {
     let player = new Player(true);
     this.lstPlayer.push(player);
   }
+
+  isAnyCollide(pWall) {
+    let isCollide = false;
+    for (let player of this.lstPlayer) {
+      if (
+        isCircleCollideRect(
+          pWall.x,
+          pWall.y,
+          Math.max(pWall.w, pWall.h) / 2,
+          player.x,
+          player.y,
+          player.w,
+          player.h
+        )
+      ) {
+        isCollide = true;
+        break;
+      }
+    }
+    return isCollide;
+  }
+
   update() {
     for (let player of this.lstPlayer) {
       player.update();

@@ -1,8 +1,25 @@
 class Zombie extends Character {
   constructor() {
-    super(gfxManager.getGfx("zombie"), 0, 0, 1, 0, 1);
-    this.x = getRandomInt(0, width - this.w);
-    this.y = 0;
+    super(
+      gfxManager.getGfx("zombie"),
+      0,
+      0,
+      1,
+      getRandomInt(0, 1),
+      getRandomInt(0, 1)
+    );
+
+    let nbTry = 0;
+
+    do {
+      nbTry++;
+      this.x = getRandomInt(0, width - this.w);
+      this.y = getRandomInt(0, height - 200 - this.h);
+    } while (wallManager.isAnyCollide(this) && nbTry < 100);
+    if (nbTry > 100) {
+      this.x = 0;
+      this.y = 0;
+    }
 
     this.setNewTimeChangeDir();
     this.timerChangeDir = 0;
@@ -61,6 +78,7 @@ class ZombieManager {
 
   generateZombie() {
     let zombie = new Zombie();
+
     this.lstZombie.push(zombie);
   }
 

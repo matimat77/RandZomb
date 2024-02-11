@@ -22,7 +22,10 @@ class Wall {
     this.timerSwitch++;
     if (this.timerSwitch >= this.timeSwitch) {
       this.timerSwitch = 0;
-      if (!zombieManager.isAnyCollide(this)) {
+      if (
+        !zombieManager.isAnyCollide(this) &&
+        !playerManager.isAnyCollide(this)
+      ) {
         this.switch();
       }
     }
@@ -30,6 +33,10 @@ class Wall {
 
   draw() {
     rectMode(CENTER);
+    if (DEBUG) {
+      fill(255);
+      circle(this.x, this.y, Math.max(this.w, this.h));
+    }
     fill(100);
     rect(this.x, this.y, this.w, this.h);
   }
@@ -41,12 +48,23 @@ class WallManager {
   }
 
   generateWalls() {
+    // let wall = new Wall();
+    // wall.x = 200;
+    // wall.y = 200;
+    // this.lstWall.push(wall);
+
     for (let y = 300; y < height - 200; y += 120) {
       for (let x = 50; x < width - 50; x += 130) {
         let wall = new Wall();
+        if (getRandomInt(1, 100) <= 30) {
+          wall.w = 10;
+          wall.h = 100;
+        } else {
+          wall.w = 100;
+          wall.h = 10;
+        }
         wall.x = x;
         wall.y = y;
-
         this.lstWall.push(wall);
       }
     }
@@ -59,7 +77,7 @@ class WallManager {
           wall.x - wall.w / 2,
           wall.y - wall.h / 2,
           wall.w,
-          wall.y,
+          wall.h,
           pCharacter.x,
           pCharacter.y,
           pCharacter.w,
