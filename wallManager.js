@@ -34,7 +34,8 @@ class Wall {
   draw() {
     rectMode(CENTER);
     if (DEBUG) {
-      fill(255);
+      noFill();
+      stroke(0, 0, 255);
       circle(this.x, this.y, Math.max(this.w, this.h));
     }
     fill(100);
@@ -54,7 +55,7 @@ class WallManager {
     // this.lstWall.push(wall);
 
     for (let y = 300; y < height - 200; y += 120) {
-      for (let x = 50; x < width - 50; x += 130) {
+      for (let x = 60; x < width; x += 130) {
         let wall = new Wall();
         if (getRandomInt(1, 100) <= 30) {
           wall.w = 10;

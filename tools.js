@@ -2,6 +2,23 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max + 1 - min) + min);
 }
 
+function getDistance(pX1, pY1, pX2, PY2) {
+  // Option 1 :
+  //   let dx = pX1 - pX2;
+  //   let dy = pY1 - pY2;
+  //   return Math.sqrt(dx * dx + dy * dy);
+
+  // Option 2 :
+  //   return Math.sqrt(Math.pow(pX1 - pX2, 2) + Math.pow(pY1 - pY2, 2));
+
+  // Option 3 : Math.hypot to calculate hypotenuse
+  return Math.hypot(pX2 - pX1, PY2 - pY1);
+}
+
+function getAngle(pX1, pY1, pX2, PY2) {
+  return Math.atan2(PY2 - pY1, pX2 - pX1);
+}
+
 function isRectCollideRect(
   pR1x,
   pR1y,
