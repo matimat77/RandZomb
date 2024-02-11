@@ -1,16 +1,45 @@
-function preload() {}
+let canvas;
+let gfxManager;
+let zombieManager;
+let wallManager;
+let playerManager;
+let FPS = 60;
 
-function setup() {
-  let canvas = createCanvas(640, 480);
-
-  rectMode(CENTER);
-  textAlign(CENTER, CENTER);
+function preload() {
+  gfxManager = new GfxManager();
+  gfxManager.addGfx("zombie", "gfx/monster", 2);
+  gfxManager.addGfx("player", "gfx/player", 4);
 }
 
-function update() {}
+function setup() {
+  canvas = createCanvas(1280, 1024);
+  frameRate(FPS);
+  start();
+}
+
+function start() {
+  zombieManager = new ZombieManager();
+  for (let i = 0; i < 5; i++) {
+    zombieManager.generateZombie();
+  }
+  wallManager = new WallManager();
+  wallManager.generateWalls();
+  playerManager = new PlayerManager();
+  playerManager.add();
+}
+
+function update() {
+  zombieManager.update();
+  wallManager.update();
+  playerManager.update();
+}
 
 function draw() {
   update();
+  background(255);
+  zombieManager.draw();
+  wallManager.draw();
+  playerManager.draw();
 }
 
 function keyPressed() {
